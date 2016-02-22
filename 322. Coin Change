@@ -1,66 +1,40 @@
 class Solution(object):
-    dic_record={}
+    # BFS + Branch and bound
+    def __init__(self):
+        self.level_queue=[]
+        self.next_level_queue=[]
+        # record whether is traveled or not
+        self.dic={}
     def coinChange(self, coins, amount):
         """
         :type coins: List[int]
         :type amount: int
         :rtype: int
         """
-        if coins == [2] and amount == 1:
-            return -1
-        coins = sorted(coins)
-        number_coin = 0
-        min_coin = sys.maxsize
+        
         if not coins:
             return -1
         if amount == 0:
             return 0
-        if amount < 0:
-            return -1
-        if amount in self.dic_record:
-            return self.dic_record[amount]
         
-        new_amount=[]
+        coin_numbers = 1
+        self.level_queue.append(amount)
         
-        for number in coins:
-            new_amount.append(amount - number)
-        
-        for a in new_amount:
-             tmp = self.coinChange(coins,a)
-            #   find min sub coin not include -1
-             if tmp != -1 and tmp < min_coin: 
-                min_coin = tmp
-        if min_coin == sys.maxsize:
-            # print("if")
-            return int(-1)
-        else:
-            # print("else")
-            self.dic_record[amount]=min_coin+1
-            return min_coin+1
-        # if amount == 6249:
-        #     return 20
-
-        
-        # if not coins:
-        #     return -1
-        # if amount == 0:
-        #     return 0
-        
-        # coins = sorted(coins)   
-        
-        # if len(coins) == 1:
-        #     if amount % coins[0] != 0:
-        #         return -1
-        #     else:
-        #         return amount / coins[0]
-        
-        # max_num = amount / coins[-1]
-        # for i in reversed(range(1, max_num+1)):
-        #     new_amount = amount - coins[-1] * i
-        #     num = self.coinChange(coins[:-1], new_amount)
-        #     if num != -1:
-        #         return num + i
-
-        # return self.coinChange(coins[:-1], amount)
-
-       
+        while self.level_queue != []: 
+            for new_amount in self.level_queue:
+                for number in coins:
+                    if new_amount - number == 0 :
+                        return coin_numbers
+                    elif new_amount - number in self.dic:
+                        pass 
+                    elif new_amount - number > 0:
+                        self.next_level_queue.append(new_amount - number)
+                        self.dic[new_amount - number] = coin_numbers
+                    else:
+                        pass
+                self.level_queue = self.level_queue[1:]
+                if self.level_queue == []:
+                    coin_numbers += 1
+                    self.level_queue = list(self.next_level_queue)
+                    self.next_level_queue = []
+        return -1
