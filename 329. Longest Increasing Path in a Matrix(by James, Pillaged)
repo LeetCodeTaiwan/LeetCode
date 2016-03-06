@@ -1,0 +1,68 @@
+class Solution(object):
+    
+    
+    def longestIncreasingPath(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: int
+        """
+        if matrix is None:
+            return 0
+        if matrix == []:
+            return 0
+        m = len(matrix)
+        n = len(matrix[0])
+        travel_order=[]
+        
+        for i in range (m):
+            for j in range (n):
+                travel_order.append(matrix[i][j])
+                # print(matrix[i][j])
+        
+        travel_matrix = m*[n*[0]] 
+        # print(travel_matrix)
+        smallest = travel_order[0]                
+        largest = travel_order[-1]
+        
+        sorted(travel_order)
+        
+        
+        def DFStravel(i,j):
+            
+                
+            if travel_matrix[i][j] == 0:
+                travel_matrix[i][j] = max(DFStravel(i+1,j) if i+1 < m and matrix[i][j] > matrix[i+1][j]  else 0,
+                                            DFStravel(i-1,j) if i-1 > -1  and matrix[i][j] > matrix[i-1][j] else 0,
+                                            DFStravel(i,j+1) if j+1 < n and matrix[i][j] > matrix[i][j+1] else 0,
+                                            DFStravel(i,j-1) if j-1 > -1 and matrix[i][j] > matrix[i][j-1] else 0) + 1
+                
+            return travel_matrix[i][j]
+        
+        
+        
+        for t in travel_order:
+            for i in range (m):
+                for j in range (n):
+                    if matrix[i][j] == t and travel_matrix[i][j] == 0:
+                        DFStravel(i,j)
+                    
+                        
+        
+            
+            if t < smallest+travel_matrix[i][j]:
+                pass
+            else:
+                travel_order.remove(t)
+        
+        
+            
+
+            
+        return max([max(travel_matrix[i])]for i in range (m))
+                    
+        
+                
+                
+        
+        
+        

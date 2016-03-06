@@ -1,0 +1,46 @@
+import copy
+class Solution(object):
+    def gameOfLife(self, board):
+        """
+        :type board: List[List[int]]
+        :rtype: void Do not return anything, modify board in-place instead.
+        """
+        # if not board :
+        #     return board
+        # if board == [[]]:
+        #     return [[]]
+            
+        def check_neighbor(m,n):
+            live=0
+            if m - 1 >= 0 and n - 1 >= 0 and answer[m-1][n-1] == 1:
+                live += 1
+            if m >= 0 and n-1 >= 0 and answer[m][n-1] == 1:
+                live += 1
+            if m + 1 < row and n - 1 >= 0 and answer[m+1][n-1] == 1:
+                live += 1
+            if m - 1 >= 0 and n < col and answer[m-1][n] == 1:
+                live += 1
+            if m + 1 < row and n < col and answer[m+1][n] == 1:
+                live += 1
+            if m - 1 >= 0 and n + 1 < col and answer[m-1][n+1] == 1:
+                live += 1
+            if m >= 0 and n + 1 < col and answer[m][n+1] == 1:
+                live += 1
+            if m + 1 < row and n + 1 < col and answer[m+1][n+1] == 1:
+                live += 1
+            print(m,n,live)
+            return (answer[m][n] == 1 and live == 2) or (answer[m][n] == 1 and live == 3) or (answer[m][n] == 0 and live == 3)   
+        answer = copy.deepcopy(board)
+        row = len(board)
+        col = len(board[0])
+        for m in xrange(row):
+            for n in xrange(col):
+                board[m][n] = int(check_neighbor(m,n))
+            
+        
+        
+        
+        
+        
+        
+        
