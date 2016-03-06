@@ -1,14 +1,8 @@
 class Solution(object):
 	def gameOfLife(self, board):
-		"""
-		:type board: List[List[int]]
-		:rtype: void Do not return anything, modify board in-place instead.
-		"""
-
 		def checkLife(i, j):
-
 			liveCellNum = 0
-			
+
 			for rd, cd in [(-1,-1),(-1,0),(-1,1),(0,-1),(0,1),(1,-1),(1,0),(1,1)]:
 				if rd + i >= 0 and rd + i < len(board) and cd + j >= 0 and cd + j < len(board[0]):
 					liveCellNum += board[rd+i][cd+j]
@@ -29,6 +23,3 @@ class Solution(object):
 		board = nextTurnBoard
 
 		return board
-
-Instance = Solution()
-print(Instance.gameOfLife([[1]]))
