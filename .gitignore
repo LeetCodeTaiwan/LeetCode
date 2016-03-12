@@ -1,0 +1,3 @@
+*.pyc
+Lib/*.pyc
+114_Flatten_Binary_Tree.py
