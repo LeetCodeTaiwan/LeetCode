@@ -1,0 +1,50 @@
+class Solution(object):
+    def increasingTriplet(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        i=0
+        count=0
+        top=[]
+        buttom=[]
+        while i < len(nums)-1:
+            if nums[i] - nums[i+1] < 0:
+                count += 1
+                top.append(nums[i+1])
+                buttom.append(nums[i])
+            i+=1
+            # print(i)
+        # print(top,count)
+        j = 0
+        k = 0
+        if count >= 2:
+            while j < len(top)-1:
+                if top[j] - top[j+1] < 0:
+                    return True
+                j += 1
+            while k < len(buttom)-1:
+                if buttom[k] - buttom[k+1] < 0:
+                    return True
+                k += 1
+        return False
+        # curMax=0
+        # count=0
+        # for i in range(len(nums)-1):
+        #     if nums[i+1]-nums[i]>0:
+        #         tmp=max(nums[i+1],nums[i])
+                
+        #         if tmp>curMax:
+        #             curMax=tmp
+        #             count+=1
+        #     else:
+        #         continue
+        # if count>=2:
+        #     return True
+        # else:
+        #     return False
+            
+            
+        
+        
+            
